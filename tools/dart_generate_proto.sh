@@ -37,9 +37,9 @@ mkdir -p $GENERATION_DIR
 #
 # The `--dart_out` flag specifies the output directory for the generated Dart files.
 # The `-I` flag specifies the directory to search for the imported `.proto` files.
-# The `proto/*.proto` and `proto/*/*.proto` files are the input `.proto` files.
+# The `proto/*.proto` file(s) are the input `.proto` files.
 set -e
-protoc --dart_out=grpc:$GENERATION_DIR -Iproto/ proto/*.proto proto/*/*.proto
+protoc --dart_out=grpc:$GENERATION_DIR -Iproto/ proto/*.proto
 set +e
 
 # At the beginning of each generated file in lib/generated/*, add the following line:

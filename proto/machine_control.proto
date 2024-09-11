@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package machine_control;
+
+// The MachineControl service provides methods for controlling the machine via gRPC.
+service MachineControl {
+  // Set the state of the LED.
+  rpc SetLedState(SetLedStateRequest) returns (Empty) {}
+}
+
+// An empty message. Ideally this would be a google.protobuf.Empty, but it is not available for Dart code generation.
+message Empty {}
+
+// Request message for SetLedState.
+message SetLedStateRequest {
+  // The state to set the LED to.
+  bool ledOn = 1;
+}
