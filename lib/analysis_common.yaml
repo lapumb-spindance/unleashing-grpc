@@ -1,0 +1,39 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - lib/src/generated/**
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+linter:
+  # See https://dart.dev/tools/linter-rules for the list of supported lints.
+  rules:
+    - always_declare_return_types
+    - always_specify_types
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_multiple_declarations_per_line
+    - avoid_empty_else
+    - discarded_futures
+    - no_duplicate_case_values
+    - no_self_assignments
+    - no_wildcard_variable_uses
+    - unnecessary_statements
+    - always_put_control_body_on_new_line
+    - always_put_required_named_parameters_first
+    - no_literal_bool_comparisons
+    - prefer_final_parameters
+    - unawaited_futures
+    - unnecessary_await_in_return
+    - unnecessary_breaks
+    - use_enums
+    - use_to_and_as_if_applicable
+    - prefer_final_locals
+    - prefer_final_in_for_each
+    - prefer_relative_imports
+    - require_trailing_commas
+    - use_named_constants
+    - prefer_single_quotes
+    - eol_at_end_of_file
+    - avoid_single_cascade_in_expression_statements
