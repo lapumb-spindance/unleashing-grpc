@@ -3,7 +3,9 @@
     "version": "0.2",
     "words": [
         "gpio",
-        "unawaited"
+        "unawaited",
+        "cupertino",
+        "writeln"
     ],
     "flagWords": []
 }
