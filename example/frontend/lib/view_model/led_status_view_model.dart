@@ -44,7 +44,6 @@ class LedStatusViewModel extends ChangeNotifier {
     }
   }
 
-  /// Get the LED status via gRPC.
   void _getInitialInfo() async {
     final LedInfo info = await _client.getLedInfo();
     _ledStatus = info.ledOn;

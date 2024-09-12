@@ -36,7 +36,7 @@ class _LedStatusView extends StatelessWidget {
               children: <Widget>[
                 const Text('LED Info:'),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(50.0),
                   child: Selector<LedStatusViewModel, String>(
                     selector: (final _, final LedStatusViewModel viewModel) =>
                         viewModel.ledInfo,
