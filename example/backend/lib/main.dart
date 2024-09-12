@@ -59,7 +59,7 @@ void main() async {
 
   // Attempt to get the hostname and GPIO pin from the environment.
   try {
-    hostname = Platform.environment['HOSTNAME'] ?? 'localhost';
+    hostname = const String.fromEnvironment('HOSTNAME', defaultValue: 'localhost');
     gpio = int.parse(Platform.environment['GPIO'] ?? '6');
   } on FormatException catch (e) {
     logger.severe('Failed to parse GPIO pin: $e');
