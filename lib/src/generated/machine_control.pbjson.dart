@@ -23,14 +23,29 @@ const Empty$json = {
 final $typed_data.Uint8List emptyDescriptor =
     $convert.base64Decode('CgVFbXB0eQ==');
 
-@$core.Deprecated('Use setLedStateRequestDescriptor instead')
-const SetLedStateRequest$json = {
-  '1': 'SetLedStateRequest',
+@$core.Deprecated('Use ledStateDescriptor instead')
+const LedState$json = {
+  '1': 'LedState',
   '2': [
     {'1': 'ledOn', '3': 1, '4': 1, '5': 8, '10': 'ledOn'},
   ],
 };
 
-/// Descriptor for `SetLedStateRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List setLedStateRequestDescriptor = $convert
-    .base64Decode('ChJTZXRMZWRTdGF0ZVJlcXVlc3QSFAoFbGVkT24YASABKAhSBWxlZE9u');
+/// Descriptor for `LedState`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ledStateDescriptor =
+    $convert.base64Decode('CghMZWRTdGF0ZRIUCgVsZWRPbhgBIAEoCFIFbGVkT24=');
+
+@$core.Deprecated('Use ledInfoDescriptor instead')
+const LedInfo$json = {
+  '1': 'LedInfo',
+  '2': [
+    {'1': 'pin', '3': 1, '4': 1, '5': 5, '10': 'pin'},
+    {'1': 'info', '3': 2, '4': 1, '5': 9, '10': 'info'},
+    {'1': 'ledOn', '3': 3, '4': 1, '5': 8, '10': 'ledOn'},
+  ],
+};
+
+/// Descriptor for `LedInfo`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ledInfoDescriptor = $convert.base64Decode(
+    'CgdMZWRJbmZvEhAKA3BpbhgBIAEoBVIDcGluEhIKBGluZm8YAiABKAlSBGluZm8SFAoFbGVkT2'
+    '4YAyABKAhSBWxlZE9u');

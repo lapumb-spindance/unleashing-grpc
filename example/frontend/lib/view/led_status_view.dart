@@ -18,27 +18,60 @@ class LedStatusView extends StatelessWidget {
 class _LedStatusView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
-    final LedStatusViewModel viewModel = context.watch<LedStatusViewModel>();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('LED Status'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'LED Status: ${viewModel.ledStatus ? 'On' : 'Off'}',
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: Center(
+              child: _LedToggleContainer(),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => viewModel.setLedStatus(!viewModel.ledStatus),
-              child: Text(viewModel.ledStatus ? 'Turn Off' : 'Turn On'),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Column(
+              children: <Widget>[
+                const Text('LED Info:'),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Selector<LedStatusViewModel, String>(
+                    selector: (final _, final LedStatusViewModel viewModel) =>
+                        viewModel.ledInfo,
+                    builder: (final _, final String ledInfo, final __) =>
+                        Text(ledInfo),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _LedToggleContainer extends StatelessWidget {
+  @override
+  Widget build(final BuildContext context) {
+    final LedStatusViewModel viewModel = context.watch<LedStatusViewModel>();
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'LED Status: ${viewModel.ledStatus ? 'On' : 'Off'}',
+          style:
+              TextStyle(color: viewModel.ledStatus ? Colors.green : Colors.red),
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () => viewModel.setLedStatus(!viewModel.ledStatus),
+          child: Text(viewModel.ledStatus ? 'Turn Off' : 'Turn On'),
+        ),
+      ],
     );
   }
 }

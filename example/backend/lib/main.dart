@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:event_bus/event_bus.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:logging/logging.dart';
@@ -65,16 +66,16 @@ void main() async {
     exit(1);
   }
 
+  final EventBus eventBus = EventBus();
+
   if (Platform.isLinux) {
-    machineControl = MachineControl();
+    machineControl = MachineControl(gpio, eventBus);
   } else {
-    machineControl = MockMachineControl();
+    machineControl = MockMachineControl(gpio, eventBus);
   }
 
-  machineControl.init(gpio);
-
   final MachineControlGrpcServer server = MachineControlGrpcServer(
-    service: MachineControlService(machineControl),
+    service: MachineControlService(machineControl, eventBus),
     hostname: hostname,
     logger: logger,
   );

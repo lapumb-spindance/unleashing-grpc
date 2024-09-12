@@ -55,8 +55,8 @@ class Empty extends $pb.GeneratedMessage {
 }
 
 /// Request message for SetLedState.
-class SetLedStateRequest extends $pb.GeneratedMessage {
-  factory SetLedStateRequest({
+class LedState extends $pb.GeneratedMessage {
+  factory LedState({
     $core.bool? ledOn,
   }) {
     final $result = create();
@@ -65,16 +65,16 @@ class SetLedStateRequest extends $pb.GeneratedMessage {
     }
     return $result;
   }
-  SetLedStateRequest._() : super();
-  factory SetLedStateRequest.fromBuffer($core.List<$core.int> i,
+  LedState._() : super();
+  factory LedState.fromBuffer($core.List<$core.int> i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromBuffer(i, r);
-  factory SetLedStateRequest.fromJson($core.String i,
+  factory LedState.fromJson($core.String i,
           [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
       create()..mergeFromJson(i, r);
 
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(
-      _omitMessageNames ? '' : 'SetLedStateRequest',
+      _omitMessageNames ? '' : 'LedState',
       package:
           const $pb.PackageName(_omitMessageNames ? '' : 'machine_control'),
       createEmptyInstance: create)
@@ -84,25 +84,23 @@ class SetLedStateRequest extends $pb.GeneratedMessage {
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
       'Will be removed in next major version')
-  SetLedStateRequest clone() => SetLedStateRequest()..mergeFromMessage(this);
+  LedState clone() => LedState()..mergeFromMessage(this);
   @$core.Deprecated('Using this can add significant overhead to your binary. '
       'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
       'Will be removed in next major version')
-  SetLedStateRequest copyWith(void Function(SetLedStateRequest) updates) =>
-      super.copyWith((message) => updates(message as SetLedStateRequest))
-          as SetLedStateRequest;
+  LedState copyWith(void Function(LedState) updates) =>
+      super.copyWith((message) => updates(message as LedState)) as LedState;
 
   $pb.BuilderInfo get info_ => _i;
 
   @$core.pragma('dart2js:noInline')
-  static SetLedStateRequest create() => SetLedStateRequest._();
-  SetLedStateRequest createEmptyInstance() => create();
-  static $pb.PbList<SetLedStateRequest> createRepeated() =>
-      $pb.PbList<SetLedStateRequest>();
+  static LedState create() => LedState._();
+  LedState createEmptyInstance() => create();
+  static $pb.PbList<LedState> createRepeated() => $pb.PbList<LedState>();
   @$core.pragma('dart2js:noInline')
-  static SetLedStateRequest getDefault() => _defaultInstance ??=
-      $pb.GeneratedMessage.$_defaultFor<SetLedStateRequest>(create);
-  static SetLedStateRequest? _defaultInstance;
+  static LedState getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LedState>(create);
+  static LedState? _defaultInstance;
 
   /// The state to set the LED to.
   @$pb.TagNumber(1)
@@ -116,6 +114,104 @@ class SetLedStateRequest extends $pb.GeneratedMessage {
   $core.bool hasLedOn() => $_has(0);
   @$pb.TagNumber(1)
   void clearLedOn() => clearField(1);
+}
+
+/// String-ified info about the LED pin.
+class LedInfo extends $pb.GeneratedMessage {
+  factory LedInfo({
+    $core.int? pin,
+    $core.String? info,
+    $core.bool? ledOn,
+  }) {
+    final $result = create();
+    if (pin != null) {
+      $result.pin = pin;
+    }
+    if (info != null) {
+      $result.info = info;
+    }
+    if (ledOn != null) {
+      $result.ledOn = ledOn;
+    }
+    return $result;
+  }
+  LedInfo._() : super();
+  factory LedInfo.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory LedInfo.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LedInfo',
+      package:
+          const $pb.PackageName(_omitMessageNames ? '' : 'machine_control'),
+      createEmptyInstance: create)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'pin', $pb.PbFieldType.O3)
+    ..aOS(2, _omitFieldNames ? '' : 'info')
+    ..aOB(3, _omitFieldNames ? '' : 'ledOn', protoName: 'ledOn')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+      'Will be removed in next major version')
+  LedInfo clone() => LedInfo()..mergeFromMessage(this);
+  @$core.Deprecated('Using this can add significant overhead to your binary. '
+      'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+      'Will be removed in next major version')
+  LedInfo copyWith(void Function(LedInfo) updates) =>
+      super.copyWith((message) => updates(message as LedInfo)) as LedInfo;
+
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LedInfo create() => LedInfo._();
+  LedInfo createEmptyInstance() => create();
+  static $pb.PbList<LedInfo> createRepeated() => $pb.PbList<LedInfo>();
+  @$core.pragma('dart2js:noInline')
+  static LedInfo getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LedInfo>(create);
+  static LedInfo? _defaultInstance;
+
+  /// The pin number of the LED.
+  @$pb.TagNumber(1)
+  $core.int get pin => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set pin($core.int v) {
+    $_setSignedInt32(0, v);
+  }
+
+  @$pb.TagNumber(1)
+  $core.bool hasPin() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPin() => clearField(1);
+
+  /// General info.
+  @$pb.TagNumber(2)
+  $core.String get info => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set info($core.String v) {
+    $_setString(1, v);
+  }
+
+  @$pb.TagNumber(2)
+  $core.bool hasInfo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearInfo() => clearField(2);
+
+  /// The current state of the LED.
+  @$pb.TagNumber(3)
+  $core.bool get ledOn => $_getBF(2);
+  @$pb.TagNumber(3)
+  set ledOn($core.bool v) {
+    $_setBool(2, v);
+  }
+
+  @$pb.TagNumber(3)
+  $core.bool hasLedOn() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearLedOn() => clearField(3);
 }
 
 const _omitFieldNames = $core.bool.fromEnvironment('protobuf.omit_field_names');

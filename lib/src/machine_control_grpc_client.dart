@@ -37,8 +37,22 @@ class MachineControlGrpcClient {
 
   /// Set the [ledOn] state to on ([true]) or off ([false]).
   Future<void> setLedState(final bool ledOn) async {
-    logger?.info('Setting LED state to ${ledOn ? 'on' : 'off'}');
+    logger?.finest('Setting LED state to ${ledOn ? 'on' : 'off'}');
 
-    await _stub.setLedState(SetLedStateRequest(ledOn: ledOn));
+    await _stub.setLedState(LedState(ledOn: ledOn));
+  }
+
+  /// Get the LED pin info.
+  Future<LedInfo> getLedInfo() async {
+    logger?.finest('Getting LED info');
+
+    return _stub.getLedInfo(Empty());
+  }
+
+  /// Stream the LED status.
+  Stream<LedState> streamLedState() async* {
+    logger?.finest('Streaming LED state');
+
+    yield* _stub.streamLedState(Empty());
   }
 }

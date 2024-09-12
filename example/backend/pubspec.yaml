@@ -14,6 +14,7 @@ dependencies:
   unleashing_grpc:
     path: ../../
   dart_periphery: ^0.9.6
+  event_bus: ^2.0.0
 
 dev_dependencies:
   flutter_test:

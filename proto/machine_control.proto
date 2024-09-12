@@ -5,14 +5,32 @@ package machine_control;
 // The MachineControl service provides methods for controlling the machine via gRPC.
 service MachineControl {
   // Set the state of the LED.
-  rpc SetLedState(SetLedStateRequest) returns (Empty) {}
+  rpc SetLedState(LedState) returns (Empty) {}
+
+  // Get info about the LED pin.
+  rpc GetLedInfo(Empty) returns (LedInfo) {}
+
+  // Stream the active state of the LED.
+  rpc StreamLedState(Empty) returns (stream LedState) {}
 }
 
 // An empty message. Ideally this would be a google.protobuf.Empty, but it is not available for Dart code generation.
 message Empty {}
 
 // Request message for SetLedState.
-message SetLedStateRequest {
+message LedState {
   // The state to set the LED to.
   bool ledOn = 1;
+}
+
+// String-ified info about the LED pin.
+message LedInfo {
+  // The pin number of the LED.
+  int32 pin = 1;
+
+  // General info.
+  string info = 2;
+
+  // The current state of the LED.
+  bool ledOn = 3;
 }
