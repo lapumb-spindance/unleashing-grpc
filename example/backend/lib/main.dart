@@ -1,125 +1,102 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() {
-  runApp(const MyApp());
-}
+import 'package:flutter/widgets.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+import 'package:logging/logging.dart';
+import 'package:unleashing_grpc/unleashing_grpc.dart';
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+import 'machine_control.dart';
+import 'machine_control_service.dart';
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((final LogRecord record) {
+    String start = '\x1b[0m';
+    const String reset = '\x1b[0m';
+
+    switch (record.level) {
+      case Level.FINEST:
+      case Level.FINER:
+        // Grey.
+        start = '\x1b[90m';
+      case Level.FINE:
+      case Level.CONFIG:
+        // White.
+        start = '\x1b[97m';
+      case Level.INFO:
+        // Green.
+        start = '\x1b[32m';
+      case Level.WARNING:
+        // Yellow.
+        start = '\x1b[33m';
+      case Level.SEVERE:
+        // Red.
+        start = '\x1b[31m';
+      case Level.SHOUT:
+        start = '\x1b[41m\x1b[93m';
+    }
+
+    stdout.writeln(
+      '$start(${record.time.toLocal()}) ${record.loggerName}(${record.level.name}): ${record.message}$reset',
     );
+  });
+}
+
+void main() async {
+  _setupLogging();
+
+  final Logger logger = Logger('main');
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Create and start the gRPC server. The actual machine control is only supported
+  // on Linux (since we are calling into GPIO functionality). If we are running on
+  // a different platform, we will use the mock implementation.
+  final MachineControlBase machineControl;
+  String hostname;
+  int gpio;
+
+  // Attempt to get the hostname and GPIO pin from the environment.
+  try {
+    hostname = Platform.environment['HOSTNAME'] ?? 'localhost';
+    gpio = int.parse(Platform.environment['GPIO'] ?? '6');
+  } on FormatException catch (e) {
+    logger.severe('Failed to parse GPIO pin: $e');
+    exit(1);
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  if (Platform.isLinux) {
+    machineControl = MachineControl();
+  } else {
+    machineControl = MockMachineControl();
+  }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+  machineControl.init(gpio);
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
+  final MachineControlGrpcServer server = MachineControlGrpcServer(
+    service: MachineControlService(machineControl),
+    hostname: hostname,
+    logger: logger,
+  );
 
-  final String title;
+  await server.start().then((final _) {
+    logger.info('gRPC server started!');
+  }).onError((final Object error, final StackTrace stackTrace) {
+    logger.severe('Failed to start gRPC server: $error', error, stackTrace);
+    machineControl.dispose();
+    exit(1);
+  });
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  // Handle SIGINT (Ctrl+C) to stop the gRPC server and clean up.
+  ProcessSignal.sigint.watch().listen((final ProcessSignal signal) async {
+    logger.warning('Received signal $signal, stopping gRPC server...');
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+    await server.stop().then((final _) {
+      logger.info('gRPC server stopped!');
     });
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
+    machineControl.dispose();
+
+    exit(0);
+  });
 }
