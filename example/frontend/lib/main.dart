@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     return MaterialApp(
-      title: 'Machine Control gRPC Example',
+      title: 'Unleashing gRPC Frontend',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,

@@ -42,7 +42,7 @@ class MachineControlGrpcClient {
     await _stub.setLedState(LedState(ledOn: ledOn));
   }
 
-  /// Get the LED pin info.
+  /// Get the LED GPIO info.
   Future<LedInfo> getLedInfo() async {
     logger?.finest('Getting LED info');
 

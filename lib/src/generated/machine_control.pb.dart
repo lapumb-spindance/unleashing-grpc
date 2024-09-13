@@ -116,16 +116,16 @@ class LedState extends $pb.GeneratedMessage {
   void clearLedOn() => clearField(1);
 }
 
-/// String-ified info about the LED pin.
+/// String-ified info about the LED GPIO.
 class LedInfo extends $pb.GeneratedMessage {
   factory LedInfo({
-    $core.int? pin,
+    $core.int? gpioNum,
     $core.String? info,
     $core.bool? ledOn,
   }) {
     final $result = create();
-    if (pin != null) {
-      $result.pin = pin;
+    if (gpioNum != null) {
+      $result.gpioNum = gpioNum;
     }
     if (info != null) {
       $result.info = info;
@@ -148,7 +148,8 @@ class LedInfo extends $pb.GeneratedMessage {
       package:
           const $pb.PackageName(_omitMessageNames ? '' : 'machine_control'),
       createEmptyInstance: create)
-    ..a<$core.int>(1, _omitFieldNames ? '' : 'pin', $pb.PbFieldType.O3)
+    ..a<$core.int>(1, _omitFieldNames ? '' : 'gpioNum', $pb.PbFieldType.O3,
+        protoName: 'gpioNum')
     ..aOS(2, _omitFieldNames ? '' : 'info')
     ..aOB(3, _omitFieldNames ? '' : 'ledOn', protoName: 'ledOn')
     ..hasRequiredFields = false;
@@ -174,18 +175,18 @@ class LedInfo extends $pb.GeneratedMessage {
       _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LedInfo>(create);
   static LedInfo? _defaultInstance;
 
-  /// The pin number of the LED.
+  /// The GPIO number of the LED.
   @$pb.TagNumber(1)
-  $core.int get pin => $_getIZ(0);
+  $core.int get gpioNum => $_getIZ(0);
   @$pb.TagNumber(1)
-  set pin($core.int v) {
+  set gpioNum($core.int v) {
     $_setSignedInt32(0, v);
   }
 
   @$pb.TagNumber(1)
-  $core.bool hasPin() => $_has(0);
+  $core.bool hasGpioNum() => $_has(0);
   @$pb.TagNumber(1)
-  void clearPin() => clearField(1);
+  void clearGpioNum() => clearField(1);
 
   /// General info.
   @$pb.TagNumber(2)

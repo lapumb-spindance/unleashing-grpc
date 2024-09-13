@@ -6,7 +6,8 @@ import 'package:unleashing_grpc/unleashing_grpc.dart';
 final GetIt locator = GetIt.instance;
 
 void setup() {
-  const String hostname = String.fromEnvironment('HOSTNAME', defaultValue: 'localhost');
+  const String hostname =
+      String.fromEnvironment('HOSTNAME', defaultValue: 'localhost');
 
   locator.registerSingleton<MachineControlGrpcClient>(
     MachineControlGrpcClient(

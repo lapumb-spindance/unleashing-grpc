@@ -47,7 +47,7 @@ class LedStatusViewModel extends ChangeNotifier {
   void _getInitialInfo() async {
     final LedInfo info = await _client.getLedInfo();
     _ledStatus = info.ledOn;
-    _ledInfo = 'Selected pin: ${info.pin}:\n${info.info}';
+    _ledInfo = 'Selected GPIO: ${info.gpioNum}:\n${info.info}';
     notifyListeners();
   }
 
@@ -59,7 +59,7 @@ class LedStatusViewModel extends ChangeNotifier {
         if (state.ledOn == _ledStatus) {
           return;
         }
-        
+
         _ledStatus = state.ledOn;
         notifyListeners();
       },

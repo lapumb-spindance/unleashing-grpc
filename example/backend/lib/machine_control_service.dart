@@ -33,7 +33,7 @@ class MachineControlService extends MachineControlServiceBase {
     return LedInfo(
       ledOn: _machineControl.ledState,
       info: _machineControl.getLedInfo(),
-      pin: _machineControl.gpioPin,
+      gpioNum: _machineControl.gpioNum,
     );
   }
 

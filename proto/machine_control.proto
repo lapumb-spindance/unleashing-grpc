@@ -7,7 +7,7 @@ service MachineControl {
   // Set the state of the LED.
   rpc SetLedState(LedState) returns (Empty) {}
 
-  // Get info about the LED pin.
+  // Get info about the LED GPIO.
   rpc GetLedInfo(Empty) returns (LedInfo) {}
 
   // Stream the active state of the LED.
@@ -23,10 +23,10 @@ message LedState {
   bool ledOn = 1;
 }
 
-// String-ified info about the LED pin.
+// String-ified info about the LED GPIO.
 message LedInfo {
-  // The pin number of the LED.
-  int32 pin = 1;
+  // The GPIO number of the LED.
+  int32 gpioNum = 1;
 
   // General info.
   string info = 2;

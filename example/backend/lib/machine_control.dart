@@ -11,7 +11,7 @@ class LedStateEvent {
 /// The abstract base class for machine control.
 abstract interface class MachineControlBase {
   MachineControlBase(final int gpioPin, final EventBus eventBus);
-  int get gpioPin;
+  int get gpioNum;
   void dispose();
   String getLedInfo();
   void setLedState(final bool ledOn);
@@ -22,17 +22,17 @@ abstract interface class MachineControlBase {
 class MockMachineControl implements MachineControlBase {
   final Logger _logger = Logger('MockMachineControl');
   late final EventBus _eventBus;
-  late final int _gpioPin;
+  late final int _gpioNum;
   bool _ledState = false;
 
   MockMachineControl(final int gpioPin, final EventBus eventBus) {
     _eventBus = eventBus;
-    _gpioPin = gpioPin;
+    _gpioNum = gpioPin;
     _logger.info('Initializing mock GPIO pin $gpioPin');
   }
 
   @override
-  int get gpioPin => _gpioPin;
+  int get gpioNum => _gpioNum;
 
   @override
   void dispose() {
@@ -69,7 +69,7 @@ class MachineControl implements MachineControlBase {
   }
 
   @override
-  int get gpioPin => _gpio.line;
+  int get gpioNum => _gpio.line;
 
   @override
   void dispose() {

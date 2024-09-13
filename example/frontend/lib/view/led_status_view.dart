@@ -23,7 +23,6 @@ class _LedStatusView extends StatelessWidget {
         title: const Text('LED Status'),
         centerTitle: true,
         backgroundColor: Colors.orange,
-        
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
