@@ -21,6 +21,9 @@ class _LedStatusView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('LED Status'),
+        centerTitle: true,
+        backgroundColor: Colors.orange,
+        
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -56,6 +56,10 @@ class LedStatusViewModel extends ChangeNotifier {
 
     _client.streamLedState().listen(
       (final LedState state) {
+        if (state.ledOn == _ledStatus) {
+          return;
+        }
+        
         _ledStatus = state.ledOn;
         notifyListeners();
       },
