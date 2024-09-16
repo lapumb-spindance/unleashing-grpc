@@ -2,6 +2,7 @@ import 'package:dart_periphery/dart_periphery.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:logging/logging.dart';
 
+/// The event published to the event bus when the LED state changes.
 class LedStateEvent {
   final bool ledOn;
 
@@ -10,7 +11,7 @@ class LedStateEvent {
 
 /// The abstract base class for machine control.
 abstract interface class MachineControlBase {
-  MachineControlBase(final int gpioPin, final EventBus eventBus);
+  MachineControlBase(final int gpioNum, final EventBus eventBus);
   int get gpioNum;
   void dispose();
   String getLedInfo();
@@ -25,10 +26,10 @@ class MockMachineControl implements MachineControlBase {
   late final int _gpioNum;
   bool _ledState = false;
 
-  MockMachineControl(final int gpioPin, final EventBus eventBus) {
+  MockMachineControl(final int gpioNum, final EventBus eventBus) {
     _eventBus = eventBus;
-    _gpioNum = gpioPin;
-    _logger.info('Initializing mock GPIO pin $gpioPin');
+    _gpioNum = gpioNum;
+    _logger.info('Initializing mock GPIO $gpioNum');
   }
 
   @override
@@ -61,11 +62,11 @@ class MachineControl implements MachineControlBase {
   late final GPIO _gpio;
   late final EventBus _eventBus;
 
-  MachineControl(final int gpioPin, final EventBus eventBus) {
+  MachineControl(final int gpioNum, final EventBus eventBus) {
     _eventBus = eventBus;
 
-    _logger.info('Initializing GPIO pin $gpioPin');
-    _gpio = GPIO(gpioPin, GPIOdirection.gpioDirOut);
+    _logger.info('Initializing GPIO $gpioNum');
+    _gpio = GPIO(gpioNum, GPIOdirection.gpioDirOut);
   }
 
   @override
