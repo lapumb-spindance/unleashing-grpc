@@ -17,3 +17,7 @@ The example also supports build-time configuration of the GPIO number being used
 ```bash
 [fvm] flutter run --dart-define=GPIO=someInt --dart-define=GRPC_HOSTNAME="someHostname"
 ```
+
+## Tested Platforms
+
+This example has been tested on Linux and MacOS, but should work on Windows as well.

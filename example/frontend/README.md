@@ -24,3 +24,7 @@ If you encounter communication difficulties between the frontend and backend app
 1. The gRPC server hostname is identical on both the frontend and backend applications
 
 If issues persist, feel free to [open an issue](https://github.com/lapumb-spindance/unleashing-grpc/issues/new)!
+
+## Tested Platforms
+
+This example has been tested on Linux, MacOS, and iOS. Android and Windows are supported and should work as well, but feel free to open an issue if you encounter any difficulties.
