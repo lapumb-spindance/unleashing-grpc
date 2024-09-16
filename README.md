@@ -1,6 +1,6 @@
 # Unleashing gRPC
 
-This repository contains the [library](./), [backend application](example/backend/), and [frontend application](example/frontend/) ["_Unleashing gRPC_" blog](TODO:ADD_LINK(S)).
+This repository contains the [library](./), [backend application](example/backend/), and [frontend application](example/frontend/) examples that were worked through as part of the ["_Unleashing gRPC_" blog](TODO:ADD_LINK(S)).
 
 ## Getting Starting
 
