@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 
 import 'locator.dart';
-import 'view/led_status_view.dart';
+import 'view/led_state_view.dart';
 
 void _setupLogging() {
   Logger.root.level = Level.ALL;
@@ -46,11 +46,11 @@ void main() {
 
   setup();
 
-  runApp(const MyApp());
+  runApp(const UnleashingGrpcFrontend());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class UnleashingGrpcFrontend extends StatelessWidget {
+  const UnleashingGrpcFrontend({super.key});
 
   @override
   Widget build(final BuildContext context) {
@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
         useMaterial3: true,
       ),
-      home: const LedStatusView(),
+      home: const LedStateView(),
     );
   }
 }

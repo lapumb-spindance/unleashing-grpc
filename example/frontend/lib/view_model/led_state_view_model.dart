@@ -6,21 +6,21 @@ import 'package:unleashing_grpc/unleashing_grpc.dart';
 
 import '../locator.dart';
 
-class LedStatusViewModel extends ChangeNotifier {
-  final Logger _logger = Logger('LedStatusViewModel');
+class LedStateViewModel extends ChangeNotifier {
+  final Logger _logger = Logger('LedStateViewModel');
 
   final MachineControlGrpcClient _client =
       locator.get<MachineControlGrpcClient>();
 
-  /// The current LED status.
-  bool get ledStatus => _ledStatus;
-  bool _ledStatus = false;
+  /// The current LED state.
+  bool get ledState => _ledState;
+  bool _ledState = false;
 
   /// The current LED info.
   String get ledInfo => _ledInfo;
   String _ledInfo = 'Unknown';
 
-  LedStatusViewModel() {
+  LedStateViewModel() {
     Timer.periodic(const Duration(seconds: 2), (final Timer timer) {
       try {
         _getInitialInfo();
@@ -33,20 +33,20 @@ class LedStatusViewModel extends ChangeNotifier {
     _streamLedState();
   }
 
-  /// Set the LED status via gRPC.
-  void setLedStatus(final bool value) async {
+  /// Set the LED state via gRPC.
+  void setLedState(final bool value) async {
     try {
       // Note: we are not updating the local state here, as we are listening to
       // the stream of LED states (we do not want to accidentally get out of sync).
       await _client.setLedState(value);
     } catch (e) {
-      _logger.severe('Error setting LED status: $e');
+      _logger.severe('Error setting LED state: $e');
     }
   }
 
   void _getInitialInfo() async {
     final LedInfo info = await _client.getLedInfo();
-    _ledStatus = info.ledOn;
+    _ledState = info.ledOn;
     _ledInfo = 'Selected GPIO: ${info.gpioNum}:\n${info.info}';
     notifyListeners();
   }
@@ -55,18 +55,28 @@ class LedStatusViewModel extends ChangeNotifier {
     _logger.info('Starting to stream LED state..');
 
     _client.streamLedState().listen(
-      (final LedState state) {
-        if (state.ledOn == _ledStatus) {
-          return;
-        }
+          (final LedState state) {
+            if (state.ledOn == _ledState) {
+              return;
+            }
 
-        _ledStatus = state.ledOn;
-        notifyListeners();
-      },
-      cancelOnError: true,
-    ).onError((final Object error, final StackTrace stackTrace) async {
-      _logger.severe('Error streaming LED state: $error', error, stackTrace);
-      await Future<void>.delayed(const Duration(seconds: 5), _streamLedState);
-    });
+            _ledState = state.ledOn;
+            notifyListeners();
+          },
+          cancelOnError: true,
+          onError: ((final Object error) async {
+            _logger.severe(
+              'Error streaming LED state: $error',
+            );
+            await Future<void>.delayed(
+              const Duration(seconds: 5),
+              _streamLedState,
+            );
+          }),
+          onDone: () {
+            _logger.warning('LED state stream done.');
+            _streamLedState();
+          },
+        );
   }
 }

@@ -1,5 +1,7 @@
+# The proto syntax to use.
 syntax = "proto3";
 
+# The package name (which can be used if we need to include this proto in another proto).
 package machine_control;
 
 // The MachineControl service provides methods for controlling the machine via gRPC.
