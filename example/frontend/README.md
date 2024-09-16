@@ -1,16 +1,26 @@
-# frontend
+# Unleashing gRPC Frontend Example
 
-A new Flutter project.
+This example demonstrates how to use the `unleashing_grpc` library to create stateful user interface that interacts with a gRPC server to control an LED on the target device.
 
-## Getting Started
+## Running the Example
 
-This project is a starting point for a Flutter application.
+To run the example locally, run the following and select your device (if necessary):
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+[fvm] flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The example also supports configuring the gRPC server hostname at build-time. To configure, run:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+[fvm] flutter run --dart-define=GRPC_HOSTNAME="someHostname"
+```
+
+## Troubleshooting
+
+If you encounter communication difficulties between the frontend and backend applications, ensure:
+
+1. The backend application is running
+1. The gRPC server hostname is identical on both the frontend and backend applications
+
+If issues persist, feel free to [open an issue](https://github.com/lapumb-spindance/unleashing-grpc/issues/new)!

@@ -1,16 +1,19 @@
-# backend
+# Unleashing gRPC Backend Example
 
-A new Flutter project.
+This example demonstrates how to use the `unleashing_grpc` library to create a gRPC server that serves simple machine control functionality of turning an LED on and off.
 
-## Getting Started
+Please note that this is a headless Flutter application, meaning it does not have a UI. On Desktop systems (which use a mocked machine control implementation), you will likely see a black window when running this example, but this is not the case when running in the [embedded OS](https://github.com/lapumb-spindance/machine-control-os).
 
-This project is a starting point for a Flutter application.
+## Running the Example
 
-A few resources to get you started if this is your first Flutter project:
+To run the example locally, run the following and select your device (if necessary):
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+[fvm] flutter run
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The example also supports build-time configuration of the GPIO number being used (mocked out unless running on Linux) and the gRPC server hostname. To configure these settings, run:
+
+```bash
+[fvm] flutter run --dart-define=GPIO=someInt --dart-define=GRPC_HOSTNAME="someHostname"
+```

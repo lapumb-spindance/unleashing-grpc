@@ -1,39 +1,25 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Unleashing gRPC
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+This repository contains the [library](./), [backend application](example/backend/), and [frontend application](example/frontend/) ["_Unleashing gRPC_" blog](TODO:ADD_LINK(S)).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+## Getting Starting
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This repository supports using `fvm` to manage the Flutter SDK version so users can stay consistent with the Flutter SDK version this repository was built with. While it is optional to use `fvm`, it is recommended. To install `fvm`, see the [installation instructions](https://fvm.app/documentation/getting-started/installation).
 
-## Features
+For [gRPC](https://grpc.io/) and [protocol buffer](https://protobuf.dev/) code generation, this repository uses the `protoc` compiler. To install `protoc`, see the [installation instructions](https://grpc.io/docs/protoc-installation/). You will also need to install the [Dart protoc plugin](https://github.com/google/protobuf.dart/tree/master/protoc_plugin).
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+>Please note that installing the `protoc` tooling is not required as the generated code is committed to this repository. However, if you wish to regenerate the code or make changes to the `.proto` files, you will need to install the `protoc` tooling. To regenerate, run the [dart_generate_proto.sh](tools/dart_generate_proto.sh) script.
 
-## Getting started
+## `unleashing_grpc` Library
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+The `unleashing_grpc` library contains the gRPC client and server wrapper implementations to call into simple machine control functionality that is utilized by the example `frontend` and `backend` applications.
 
-## Usage
+## Running the Examples
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+To run the examples locally, see the [backend](example/backend/README.md) and [frontend](example/frontend/README.md) READMEs.
 
-```dart
-const like = 'sample';
-```
+To run the examples on the target device, see the [embedded OS](https://github.com/lapumb-spindance/machine-control-os) README.
 
-## Additional information
+## Contributing
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Want to contribute to this repository? Feel free to open a pull request, file an issue, or make a suggestion!
