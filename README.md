@@ -1,6 +1,10 @@
 # Unleashing gRPC
 
-This repository contains the [library](./), [backend application](example/backend/), and [frontend application](example/frontend/) examples that were worked through as part of the ["_Unleashing gRPC_" blog](TODO:ADD_LINK(S)).
+This repository contains the [library](./), [backend application](example/backend/), and [frontend application](example/frontend/) examples that were worked through as part of the "_Unleashing gRPC_" blog series:
+
+Part 1: [Getting Started with Machine Control Using Flutter and gRPC](https://spindance.com/2024/09/23/unleashing-grpc-part-1-getting-started-with-machine-control-using-flutter-and-grpc/)
+
+Part 2: [Diving Deeper into Machine Control Using Flutter with gRPC](https://spindance.com/2024/09/24/unleashing-grpc-part-2-diving-deeper-into-machine-control-using-flutter-with-grpc/)
 
 ## Getting Starting
 
